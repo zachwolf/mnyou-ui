@@ -1,5 +1,7 @@
 ![Header](https://res.cloudinary.com/moonclerk/image/upload/v1589814003/git-header_njliva.jpg)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ed0f19f0-f0ca-4633-896e-79a33de77d02/deploy-status)](https://app.netlify.com/sites/mnyou/deploys)
+
 # gatsby-starter-payments
 
 A Gatsby starter for creating SaaS landing pages using MoonClerk to accept payments. Easily create lightning fast static landing pages that accept payments and look good.
