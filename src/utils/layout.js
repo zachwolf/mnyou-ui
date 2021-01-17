@@ -12,6 +12,7 @@ import theme from "@utils/theme"
 import Navigation from "@organisms/navigation"
 import Footer from "@organisms/footer"
 import "./variables.css"
+import { GlobalStyles as TailwindGlobalStyles } from 'twin.macro'
 
 const GlobalStyle = createGlobalStyle`
  @media (min-width: 480px) {
@@ -34,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
 const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
+      <TailwindGlobalStyles />
       <GlobalStyle />
       <Navigation />
       <main>{children}</main>

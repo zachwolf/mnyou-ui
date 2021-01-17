@@ -47,7 +47,7 @@ const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   margin-bottom: 4rem;
   padding: 0 var(--spacingContent);
 
