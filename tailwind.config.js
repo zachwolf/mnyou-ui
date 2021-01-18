@@ -1,11 +1,11 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
+    extend: {
+      colors: {
+        electric: '#db00ff',
+        ribbon: '#0047ff',
+      },
+    },
   },
   plugins: [],
 }

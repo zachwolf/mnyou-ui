@@ -7,16 +7,13 @@ module.exports = {
     author: pkg.author,
   },
   plugins: [
-    `@babel/plugin-transform-react-jsx`,
-    `babel-plugin-macros`,
-    `gatsby-plugin-react-helmet`,
-
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-styled-components`,
-    `gatsby-plugin-postcss`,
+    'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-helmet',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
+    'gatsby-plugin-postcss',
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
           include: /assets/,
@@ -24,48 +21,41 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-typography`,
+      resolve: 'gatsby-plugin-module-resolver',
       options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
-    {
-      resolve: "gatsby-plugin-module-resolver",
-      options: {
-        root: "./src",
+        root: './src',
         aliases: {
-          "@assets": "./assets",
-          "@atoms": "./components/atoms",
-          "@molecules": "./components/molecules",
-          "@organisms": "./components/organisms",
-          "@utils": "./utils",
+          '@assets': './assets',
+          '@atoms': './components/atoms',
+          '@molecules': './components/molecules',
+          '@organisms': './components/organisms',
+          '@utils': './utils',
         },
       },
     },
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/assets/favicon.png`, // This path is relative to the root of the site.
+        name: 'MNyou.org',
+        short_name: 'MNyou',
+        start_url: '/',
+        background_color: '#f7faf0',
+        theme_color: '#f7faf0',
+        icon: 'src/assets/favicon.png', // This path is relative to the root of the site.
       },
     },
+    // {
+    //   resolve: 'gatsby-source-filesystem',
+    //   options: {
+    //     name: 'images',
+    //     path: `${__dirname}/src/assets`,
+    //   },
+    // },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/assets`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         // The property ID; the tracking code won't be generated without it
-        trackingId: "G-2TZ38N61BJ",
+        trackingId: 'G-2TZ38N61BJ',
         // Defines where to place the tracking script - `true` in the head and `false` in the body
         head: false,
         // Setting this parameter is optional
@@ -80,5 +70,5 @@ module.exports = {
         defer: false,
       },
     },
-  ],
+  ]
 }

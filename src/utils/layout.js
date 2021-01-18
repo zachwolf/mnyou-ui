@@ -1,51 +1,13 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
+import React from 'react'
+import GlobalStyles from '../components/atoms/GlobalStyles'
+import Navigation from "../components/organisms/navigation"
 
-import React from "react"
-import PropTypes from "prop-types"
-import { ThemeProvider, createGlobalStyle } from "styled-components"
-import theme from "@utils/theme"
-import Navigation from "@organisms/navigation"
-import Footer from "@organisms/footer"
-import "./variables.css"
-import { GlobalStyles as TailwindGlobalStyles } from 'twin.macro'
-
-const GlobalStyle = createGlobalStyle`
- @media (min-width: 480px) {
-  html {
-    font-size: 90%; 
-  }
-}
-@media (min-width: 600px) {
-  html {
-    font-size: 100%; 
-  }
-}
-@media (min-width: 800px) {
-  html {
-    font-size: 125%;
-  }
-}
-`
-
-const Layout = ({ children }) => {
-  return (
-    <ThemeProvider theme={theme}>
-      <TailwindGlobalStyles />
-      <GlobalStyle />
-      <Navigation />
-      <main>{children}</main>
-      <Footer />
-    </ThemeProvider>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+const Layout = ({ children, ...rest }) => (
+  <div {...rest}>
+    <GlobalStyles />
+    <Navigation />
+    {children}
+  </div>
+)
 
 export default Layout
