@@ -1,10 +1,5 @@
 {
   "name": "mnyou-ui",
-  "babelMacros": {
-    "twin": {
-      "preset": "styled-components"
-    }
-  },
   "private": false,
   "description": "MNyou.org's UI - Built with Gatsby, hosted on Netlify",
   "version": "0.1.0",
@@ -14,6 +9,7 @@
     "babel-plugin-macros": "3.0.1",
     "babel-plugin-styled-components": "1.12.0",
     "babel-preset-gatsby": "0.10.0",
+    "compass-vertical-rhythm": "1.4.5",
     "core-js": "3.8.2",
     "gatsby": "2.30.3",
     "gatsby-image": "2.9.0",
@@ -32,6 +28,7 @@
     "normalize.css": "8.0.1",
     "postcss": "8.2.4",
     "postcss-cli": "8.3.1",
+    "postcss-typography": "1.0.0",
     "prop-types": "15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -40,9 +37,8 @@
     "react-typography": "0.16.19",
     "slick-carousel": "1.8.1",
     "styled-components": "5.2.1",
-    "tailwindcss": "2.0.2",
-    "twin.macro": "2.0.8",
-    "typography": "0.16.19"
+    "typography": "0.16.19",
+    "typography-breakpoint-constants": "0.16.19"
   },
   "devDependencies": {
     "prettier": "2.2.1"

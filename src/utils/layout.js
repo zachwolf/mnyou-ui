@@ -1,12 +1,13 @@
 import React from 'react'
-import GlobalStyles from '../components/atoms/GlobalStyles'
-import Navigation from "../components/organisms/navigation"
+import GlobalStyles from '@utils/GlobalStyles'
+import ThemeProvider from '@utils/Theme'
 
 const Layout = ({ children, ...rest }) => (
   <div {...rest}>
-    <GlobalStyles />
-    <Navigation />
-    {children}
+    <ThemeProvider>
+      <GlobalStyles />
+      {children}
+    </ThemeProvider>
   </div>
 )
 
