@@ -2,6 +2,7 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import { Helmet } from 'react-helmet'
 import Typography from 'Typography'
+import FontFaceObserver from 'fontfaceobserver'
 import 'normalize.css'
 
 /**
@@ -38,21 +39,24 @@ const fontFace = `
 
 /* @import must be at top of file, otherwise CSS will not work */
 @import url("//hello.myfonts.net/count/3d0341");
+
+@font-face {
+  font-family: 'Filson Pro';
+  font-weight: normal;
+  src: url(${require('@assets/fonts/FilsonProBook.woff2')}) format('woff2'),
+       url(${require('@assets/fonts/FilsonProBook.woff')}) format('woff');
+}
   
 @font-face {
-  font-family: 'FilsonProMedium';
+  font-family: 'Filson Pro';
+  font-weight: bold;
   src: url(${require('@assets/fonts/FilsonProMedium.woff2')}) format('woff2'),
        url(${require('@assets/fonts/FilsonProMedium.woff')}) format('woff');
 }
 
 @font-face {
-  font-family: 'FilsonProBook';
-  src: url(${require('@assets/fonts/FilsonProBook.woff2')}) format('woff2'),
-       url(${require('@assets/fonts/FilsonProBook.woff')}) format('woff');
-}
-
-@font-face {
-  font-family: 'FilsonSoftHeavy';
+  font-family: 'Filson Soft';
+  font-weight: bold;
   src: url(${require('@assets/fonts/FilsonSoftHeavy.woff2')}) format('woff2'),
        url(${require('@assets/fonts/FilsonSoftHeavy.woff')}) format('woff');
 }`
@@ -65,21 +69,40 @@ const typography = new Typography({
   title: 'MNyou',
   // explicitly imported to version dependency independently
   includeNormalize: false,
-  bodyFontFamily: ['FilsonProBook'],
+  baseFontSize: '21px',
+  bodyFontFamily: ['sans-serif'],
+  baseLineHeight: 1.55,
+  headerWeight: 'bold',
+  bodyWeight: 'normal',
+  boldWeight: 'bold',
   overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
+    body: {
+      letterSpacing: '0.3px'
+    },
+    '.has-filson': {
+      fontFamily: 'Filson Pro, sans-serif',
+      fontSize: '20px',
+      lineHeight: 1.618,
+      letterSpacing: 'normal',
+    },
   }),
 })
+
+/**
+ * FOUT
+ */
+
+const filsonProBook = new FontFaceObserver('Filson Pro');
+
+filsonProBook.load().then(() => {
+  document.body.classList.add('has-filson')
+})
+
+/**
+ * Creation
+ */
 
 export default createGlobalStyle`
   ${fontFace}
   ${typography.toString()}
 `
-
-// const GlobalStylesComponent =
-// export default function GlobalStyles () {
-//   return (
-//     <>
-//       <GlobalStylesComponent />
-//     </>
-//   )
-// }
