@@ -77,7 +77,7 @@ const typography = new Typography({
   boldWeight: 'bold',
   overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
     body: {
-      letterSpacing: '0.3px'
+      letterSpacing: '0.3px',
     },
     '.has-filson': {
       fontFamily: 'Filson Pro, sans-serif',
@@ -92,7 +92,7 @@ const typography = new Typography({
  * FOUT
  */
 
-const filsonProBook = new FontFaceObserver('Filson Pro');
+const filsonProBook = new FontFaceObserver('Filson Pro')
 
 filsonProBook.load().then(() => {
   document.body.classList.add('has-filson')

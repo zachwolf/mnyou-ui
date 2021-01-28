@@ -56,19 +56,16 @@ const styleMap = {
       border-b-2
       text-sm
       font-medium
-    `
-  }
+    `,
+  },
 }
 
 const isActive = sm => ({ isCurrent }) => {
   return {
-    className: styleMap[sm ? 'sm' : ''][isCurrent ? 'active': '']
+    className: styleMap[sm ? 'sm' : ''][isCurrent ? 'active' : ''],
   }
 }
 
-export default function NavLink ({sm, ...props}) {
-  return <Link
-    getProps={isActive(sm)}
-    {...props}
-  />
+export default function NavLink({ sm, ...props }) {
+  return <Link getProps={isActive(sm)} {...props} />
 }
