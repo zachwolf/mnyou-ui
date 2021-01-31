@@ -5,7 +5,7 @@ import { basename, dirname, extname, sep } from 'path'
  * [1] Response shape:
     ```
       {
-        "standard": {
+        "standard": { // [1a]
           "edges": [
             // filter out results where `childImageSharp == null`
             {
@@ -35,7 +35,7 @@ import { basename, dirname, extname, sep } from 'path'
             ...
           ]
         },
-        "retina": {
+        "retina": { // [1b]
           "edges": [
             {
               "node": {
@@ -52,24 +52,47 @@ import { basename, dirname, extname, sep } from 'path'
             ...,
             ...
           ]
+        },
+        "scale": { // [1c]
+          "edges": [
+            {
+              "node": {
+                "relativePath": "Scene/<Directory_Name>/scale.png",
+                "childImageSharp": {
+                  "fixed": {
+                    "height": <Number>,
+                    "width": <Number>
+                  }
+                }
+              }
+            }
+          ]
         }
       }
     ```
  *
- * [2] Resulting data shape
+ * [2] 
+ * 
+ * [3] Resulting data shape
     ```
       {
         "<Directory_Name>": {
-          "<Image_Name>": {
-            "standard": "/static/<hash>/<hash>/<Image_Name>.png",
-            "base64": "data:image/png;base64,...",
+          "data": {
+            "<Image_Name>": {
+              "standard": "/static/<hash>/<hash>/<Image_Name>.png",
+              "base64": "data:image/png;base64,...",
+              "height": <Number>,
+              "width": <Number>,
+              "retina": "/static/<hash>/<hash>/<Image_Name>@2x.png"
+            },
+            ...,
+            ...,
+            ...,
+          },
+          "meta": {
             "height": <Number>,
             "width": <Number>,
-            "retina": "/static/<hash>/<hash>/<Image_Name>@2x.png"
           },
-          ...,
-          ...,
-          ...,
         },
         ...,
         ...,
@@ -80,12 +103,13 @@ import { basename, dirname, extname, sep } from 'path'
 
 export default function useScenery () {
   // [1]
-  const queryRes = useStaticQuery(graphql`
+  const imgData = useStaticQuery(graphql`
     query ImageQuery {
+      # [1a]
       standard: allFile(
         filter: {
           relativePath: { glob: "Scene/**/*" }
-          name: { regex: "/^[^@]+$/" }
+          name: { ne: "scale" regex: "/^[^@]+$/" }
           extension: { eq: "png" }
         }
       ) {
@@ -93,7 +117,7 @@ export default function useScenery () {
           node {
             relativePath
             childImageSharp {
-              fixed {
+              fixed (width: 1000) {
                 base64
                 originalName
                 height
@@ -104,10 +128,11 @@ export default function useScenery () {
           }
         }
       }
+      # [1b]
       retina: allFile(
         filter: {
           relativePath: { glob: "Scene/**/*" }
-          name: { regex: "/^.+@/" }
+          name: { ne: "scale@2x" regex: "/^.+@/" }
           extension: { eq: "png" }
         }
       ) {
@@ -115,9 +140,29 @@ export default function useScenery () {
           node {
             relativePath
             childImageSharp {
-              fixed {
+              fixed (width: 2000) {
                 originalName
                 src
+              }
+            }
+          }
+        }
+      }
+      # [1c]
+      scale: allFile(
+        filter: {
+          relativePath: { glob: "Scene/**/*" }
+          name: { eq: "scale" }
+          extension: { eq: "png" }
+        }
+      ) {
+        edges {
+          node {
+            relativePath
+            childImageSharp {
+              fixed (width: 1000) {
+                height
+                width
               }
             }
           }
@@ -126,40 +171,52 @@ export default function useScenery () {
     }
   `)
 
-  // [2]
-  return formatData(queryRes)
+  // [3]
+  return formatImageData(imgData)
 }
 
 /**
  * Beautify graphQL's response
- * 
+ *
  * @param  {Object} lists
  * @param  {Array}  lists.standard actual size image data
  * @param  {Array}  lists.retina   2x imagess
  * @return {Object}
  */
-function formatData (lists) {
-  const { standard, retina } = lists
-  const standardMap = loop(
+function formatImageData (lists) {
+  const { scale, standard, retina } = lists
+
+  // [1]
+  const standardMap = reduce(
     standard.edges,
     {},
-    (res, { scene, name, src, ...rest }) => {
-      res[scene] = {
-        ...res[scene],
-        [name]: {
-          standard: src,
-          ...rest,
+    (res, { scene, name, src, ...rest }) => ({
+      ...res,
+      [scene]: {
+        data: {
+          ...res[scene]?.data,
+          [name]: {
+            standard: src,
+            ...rest,
+          }
         }
       }
-    })
-  const fullMap = loop(
+    }))
+
+  const retinaMap = reduce(
     retina.edges,
     standardMap,
-    (res, { scene, name, src, ...rest }) => {
-      Object.assign(res[scene][name], {
-        retina: src,
-        ...rest
-      })
+    (res, { scene, name, src }) => {
+      res[scene].data[name].retina = src
+      return res
+    })
+
+  const fullMap = reduce(
+    scale.edges,
+    retinaMap,
+    (res, { scene, name, ...rest }) => {
+      res[scene].meta = rest
+      return res
     })
 
   return fullMap
@@ -172,8 +229,8 @@ function formatData (lists) {
    * @param  {Function} fn   format data
    * @return {Object}        Mutated instance of `seed`
    */
-  function loop (list, data, fn) {
-    const res = Object.assign({}, data)
+  function reduce (list, data, fn) {
+    let prev = Object.assign({}, data)
 
     list
       .filter(edge => edge.node.childImageSharp)
@@ -199,13 +256,13 @@ function formatData (lists) {
           throw new Error(`Unable to guess image name. ${node}`)
         }
 
-        fn(res, {
+        prev = fn(prev, {
           scene,
           name,
           ...rest,
         })
       })
 
-    return res
+    return prev
   }
 }

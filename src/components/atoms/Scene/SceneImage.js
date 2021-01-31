@@ -1,15 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+import Div from '@atoms/Div'
 
-const Img = styled.div`
-  height: ${props => props.height}px;
-  width: ${props => props.width}px;
+export const Img = styled(Div)`
+  height: ${props => props.height}%;
+  width: ${props => props.width}%;
   background-image: url(${props => props.image});
   background-repeat: no-repeat;
   background-size: cover;
 `
 
-export default function SceneImage ({ base64, height, name, retina, standard, width }) {
+export default function SceneImage (props) {
+  const {
+    base64,
+    height,
+    name,
+    retina,
+    scene,
+    standard,
+    width,
+  } = props
+
   const [image, setImage] = useState(base64)
   const theme = useContext(ThemeContext)
 
@@ -26,12 +37,12 @@ export default function SceneImage ({ base64, height, name, retina, standard, wi
     }
   }, [])
 
-  return (
+  return scene && (
     <Img
       data-id={name}
       image={image}
-      height={height}
-      width={width}
+      height={height / scene.meta.height * 100}
+      width={width / scene.meta.width * 100}
     />
   )
 }
