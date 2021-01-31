@@ -19,6 +19,7 @@ const App = () => (
       </div>
       <div>
         <Scene planthand />
+        <Scene watercan />
       </div>
     </div>
   </Layout>

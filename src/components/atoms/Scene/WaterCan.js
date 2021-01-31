@@ -12,50 +12,26 @@ const Wrapper = styled(Div)`
   }
 
   [data-id=background] {
-    left: 2%;
-    top: 14%;
+    top: 12%;
+    left: 1.25%;
     z-index: 0;
   }
 
-  [data-id=berry-left] {
-    left: 4.5%;
-    top: 16.325%;
+  [data-id=can] {
+    top: 3%;
+    left: 30.5%;
     z-index: 2;
-  }
-
-  [data-id=berry-right] {
-    left: 62.9%;
-    top: 23.8%;
-    z-index: 2;
-  }
-
-  [data-id=dirt] {
-    left: 31.6%;
-    top: 47.55%;
-    z-index: 3;
   }
 
   [data-id=doodle] {
-    left: 8%;
-    top: 32%;
+    top: 6%;
+    left: 7.2%;
     z-index: 1;
   }
 
-  [data-id=hand-back] {
-    left: 58.35%;
-    top: 54.95%;
-    z-index: 2;
-  }
-
-  [data-id=hand-front] {
-    left: 12.5%;
-    top: 57.64%;
-    z-index: 4;
-  }
-
-  [data-id=plant] {
-    left: 36%;
-    top: 1%;
+  [data-id=drops] {
+    top: 52%;
+    left: 23.2%;
     z-index: 2;
   }
 `
@@ -74,7 +50,7 @@ const Ratio = styled(Div)`
   padding-top: ${props => props.height / props.width * 100}%;
 `
 
-export default function PlantHand ({ children, meta, ...rest }) {
+export default function WaterCan ({ children, meta, ...rest }) {
   const { height, width } = meta
 
   return (
