@@ -20,6 +20,7 @@ const App = () => (
       <div>
         <Scene planthand />
         <Scene watercan />
+        <Scene buygive />
       </div>
     </div>
   </Layout>

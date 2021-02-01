@@ -1,11 +1,13 @@
 import React from 'react'
 import useScenery from './useScenery'
+import SceneImage from './SceneImage'
+import BuyGive from './BuyGive'
 import PlantHand from './PlantHand'
 import WaterCan from './WaterCan'
-import SceneImage from './SceneImage'
 
 export default function Scene (props) {
   const {
+    buygive = false,
     planthand = false,
     watercan = false,
     ...rest
@@ -25,6 +27,10 @@ export default function Scene (props) {
     Component = WaterCan
     scene = scenery.WaterCan
     label = 'Illustration of watering can'
+  } else if (buygive) {
+    Component = BuyGive
+    scene = scenery.BuyGive
+    label = 'Illustration of two boxes'
   }
 
   return Component ? (
