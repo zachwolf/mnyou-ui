@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Div from '@atoms/Div'
+import { context as scrollContext } from '@molecules/Scroll'
 
 export const Img = styled(Div)`
   height: ${props => props.height}%;
@@ -8,12 +9,14 @@ export const Img = styled(Div)`
   background-image: url(${props => props.image});
   background-repeat: no-repeat;
   background-size: cover;
+  position: absolute;
 `
 
 export default function SceneImage (props) {
   const {
     base64,
     height,
+    load,
     name,
     retina,
     scene,
@@ -24,18 +27,21 @@ export default function SceneImage (props) {
   const [image, setImage] = useState(base64)
   const theme = useContext(ThemeContext)
 
-  useEffect(() => {
-    const onLoad = () => setImage(src)
-    const src = window.matchMedia(theme.screen.retina) ? retina : standard
+  const onLoad = () => setImage(src)
+  const src = window.matchMedia(theme.screen.retina) ? retina : standard
 
-    const img = new Image()
-    img.addEventListener('load', onLoad)
-    img.src = src
+  const img = new Image()
+  img.addEventListener('load', onLoad)
+
+  useEffect(() => {
+    if (load) {
+      img.src = src
+    }
 
     return () => {
       img.removeEventListener('load', onLoad)
     }
-  }, [])
+  }, [load])
 
   return scene && (
     <Img

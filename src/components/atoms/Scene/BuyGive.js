@@ -1,16 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Img } from './SceneImage'
-import Div from '@atoms/Div'
+import { Wrapper } from '@molecules/Ratio'
 
-const Wrapper = styled(Div)`
-  max-width: ${props => props.width}px;
-  position: relative;
-
-  ${Img} {
-    position: absolute;
-  }
-
+const BuyGive = styled(Wrapper)`
   [data-id=background] {
     top: 2.5%;
     left: 2%;
@@ -42,29 +34,4 @@ const Wrapper = styled(Div)`
   }
 `
 
-const Content = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-`
-
-const Ratio = styled(Div)`
-  // https://css-tricks.com/aspect-ratio-boxes/
-  height: 0;
-  padding-top: ${props => props.height / props.width * 100}%;
-`
-
-export default function BuyGive ({ children, meta, ...rest }) {
-  const { height, width } = meta
-
-  return (
-    <Wrapper width={width} {...rest}>
-      <Ratio width={width} height={height} />
-      <Content>
-        {children}
-      </Content>
-    </Wrapper>
-  )
-}
+export default BuyGive

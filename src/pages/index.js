@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '@utils/layout'
 import Scene from '@atoms/Scene'
+import { Observer } from '@molecules/Scroll'
 
 const App = () => (
   <Layout>
@@ -18,9 +19,13 @@ const App = () => (
         We do this by bringing youth onto the farm to raise the vegetables and learn the business skills needed to become entrepreneurs.  
       </div>
       <div>
-        <Scene planthand />
-        <Scene watercan />
-        <Scene buygive />
+        <Observer>
+          <Scene gardener />
+          <Scene planthand />
+          <Scene watercan />
+          <Scene buygive />
+          <Scene fooddesert />
+        </Observer>
       </div>
     </div>
   </Layout>

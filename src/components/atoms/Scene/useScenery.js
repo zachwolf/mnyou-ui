@@ -101,6 +101,8 @@ import { basename, dirname, extname, sep } from 'path'
     ```
  */
 
+// let data
+
 export default function useScenery () {
   // [1]
   const imgData = useStaticQuery(graphql`
@@ -172,8 +174,15 @@ export default function useScenery () {
   `)
 
   // [3]
+  // data = formatImageData(imgData)
+  // return data
   return formatImageData(imgData)
 }
+
+/**
+ * Cache data manipulation
+ */
+const calls = new Map()
 
 /**
  * Beautify graphQL's response
@@ -184,6 +193,10 @@ export default function useScenery () {
  * @return {Object}
  */
 function formatImageData (lists) {
+  if (calls.has(lists)) {
+    return calls.get(lists)
+  }
+
   const { scale, standard, retina } = lists
 
   // [1]
@@ -207,7 +220,9 @@ function formatImageData (lists) {
     retina.edges,
     standardMap,
     (res, { scene, name, src }) => {
-      res[scene].data[name].retina = src
+      if (res?.[scene]?.data?.[name]) {
+        res[scene].data[name].retina = src
+      }
       return res
     })
 
@@ -218,6 +233,8 @@ function formatImageData (lists) {
       res[scene].meta = rest
       return res
     })
+
+  calls.set(lists, fullMap)
 
   return fullMap
 
