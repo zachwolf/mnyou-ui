@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 
 /**
@@ -11,5 +10,5 @@ import styled from 'styled-components'
 export default styled('div').withConfig({
   shouldForwardProp: (prop, defaultValidatorFn) => {
     return !['height', 'width'].includes(prop) && defaultValidatorFn(prop)
-  }
+  },
 })``

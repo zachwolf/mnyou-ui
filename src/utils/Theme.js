@@ -20,7 +20,8 @@ const theme = {
     sm: {
       max: 480,
     },
-    retina: '@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)',
+    retina:
+      '@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)',
   },
   fn: {
     rhythm,

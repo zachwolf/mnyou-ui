@@ -26,15 +26,15 @@ label.set(Gardener, 'Illustration of person holding plant')
 
 /**
  * Creates an interactive "image"
- * 
+ *
  * @param {Boolean} props.buygive    - scene type
  * @param {Boolean} props.fooddesert - scene type
  * @param {Boolean} props.gardener   - scene type
  * @param {Boolean} props.planthand  - scene type
  * @param {Boolean} props.watercan   - scene type
- * @param {Boolean} props.lazy       - 
+ * @param {Boolean} props.lazy       -
  */
-export default function Scene (props) {
+export default function Scene(props) {
   const {
     buygive = false,
     fooddesert = false,
@@ -45,16 +45,19 @@ export default function Scene (props) {
   } = props
 
   const scenePropMatch = [
-      buygive,
-      fooddesert,
-      gardener,
-      planthand,
-      watercan
-    ]
-    .filter(s => s)
+    buygive,
+    fooddesert,
+    gardener,
+    planthand,
+    watercan,
+  ].filter(s => s)
 
   if (scenePropMatch.length > 1) {
-    console.warn(`<Scene> expects a single boolean prop but received ${scenePropMatch.join(', ')}`)
+    console.warn(
+      `<Scene> expects a single boolean prop but received ${scenePropMatch.join(
+        ', '
+      )}`
+    )
   }
 
   let Component
@@ -82,18 +85,21 @@ export default function Scene (props) {
   const { width, height } = scene.meta
 
   const [hasLoaded, setHasLoaded] = useState(false)
-  function loadOnce ({ isIntersecting }) {
+  const [isAnimated, setIsAnimated] = useState(false)
+  function onReveal({ isIntersecting }) {
     if (isIntersecting && !hasLoaded) {
       setHasLoaded(true)
     }
+    setIsAnimated(isIntersecting)
   }
 
   return Component ? (
-    <Section onReveal={loadOnce}>
+    <Section onReveal={onReveal}>
       <Component
         aria-label={label.get(Component)}
         role="img"
         width={width}
+        animate={isAnimated}
         {...passThrough}
       >
         <Ratio width={width} height={height} />

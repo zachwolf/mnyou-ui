@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import VisuallyHidden from '@reach/visually-hidden'
 import { Link } from 'gatsby'
-import PropTypes from 'prop-types'
 import styled, { ThemeContext } from 'styled-components'
 import LogoIcon from '@atoms/Logo'
 import useWindowSize from '@utils/useWindowSize'

@@ -1,6 +1,4 @@
-import React from 'react'
 import { createGlobalStyle } from 'styled-components'
-import { Helmet } from 'react-helmet'
 import Typography from 'Typography'
 import FontFaceObserver from 'fontfaceobserver'
 import 'normalize.css'

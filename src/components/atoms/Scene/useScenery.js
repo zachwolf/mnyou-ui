@@ -103,7 +103,7 @@ import { basename, dirname, extname, sep } from 'path'
 
 // let data
 
-export default function useScenery () {
+export default function useScenery() {
   // [1]
   const imgData = useStaticQuery(graphql`
     query ImageQuery {
@@ -111,7 +111,7 @@ export default function useScenery () {
       standard: allFile(
         filter: {
           relativePath: { glob: "Scene/**/*" }
-          name: { ne: "scale" regex: "/^[^@]+$/" }
+          name: { ne: "scale", regex: "/^[^@]+$/" }
           extension: { eq: "png" }
         }
       ) {
@@ -119,7 +119,7 @@ export default function useScenery () {
           node {
             relativePath
             childImageSharp {
-              fixed (width: 1000) {
+              fixed(width: 1000) {
                 base64
                 originalName
                 height
@@ -134,7 +134,7 @@ export default function useScenery () {
       retina: allFile(
         filter: {
           relativePath: { glob: "Scene/**/*" }
-          name: { ne: "scale@2x" regex: "/^.+@/" }
+          name: { ne: "scale@2x", regex: "/^.+@/" }
           extension: { eq: "png" }
         }
       ) {
@@ -142,7 +142,7 @@ export default function useScenery () {
           node {
             relativePath
             childImageSharp {
-              fixed (width: 2000) {
+              fixed(width: 2000) {
                 originalName
                 src
               }
@@ -162,7 +162,7 @@ export default function useScenery () {
           node {
             relativePath
             childImageSharp {
-              fixed (width: 1000) {
+              fixed(width: 1000) {
                 height
                 width
               }
@@ -192,7 +192,7 @@ const calls = new Map()
  * @param  {Array}  lists.retina   2x imagess
  * @return {Object}
  */
-function formatImageData (lists) {
+function formatImageData(lists) {
   if (calls.has(lists)) {
     return calls.get(lists)
   }
@@ -211,10 +211,11 @@ function formatImageData (lists) {
           [name]: {
             standard: src,
             ...rest,
-          }
-        }
-      }
-    }))
+          },
+        },
+      },
+    })
+  )
 
   const retinaMap = reduce(
     retina.edges,
@@ -224,7 +225,8 @@ function formatImageData (lists) {
         res[scene].data[name].retina = src
       }
       return res
-    })
+    }
+  )
 
   const fullMap = reduce(
     scale.edges,
@@ -232,7 +234,8 @@ function formatImageData (lists) {
     (res, { scene, name, ...rest }) => {
       res[scene].meta = rest
       return res
-    })
+    }
+  )
 
   calls.set(lists, fullMap)
 
@@ -240,13 +243,13 @@ function formatImageData (lists) {
 
   /**
    * Standardizes interating over non-standard response
-   * 
+   *
    * @param  {Array}    List response's `edges`
    * @param  {Object}   data starting data
    * @param  {Function} fn   format data
    * @return {Object}        Mutated instance of `seed`
    */
-  function reduce (list, data, fn) {
+  function reduce(list, data, fn) {
     let prev = Object.assign({}, data)
 
     list
