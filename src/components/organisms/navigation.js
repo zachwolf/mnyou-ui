@@ -32,7 +32,7 @@ function Navigation() {
     ? 'M6 18L18 6M6 6l12 12'
     : 'M4 6h16M4 12h16M4 18h16'
 
-    console.log('isMobile', isMobile)
+  console.log('isMobile', isMobile)
 
   return (
     <NavBar>
@@ -70,24 +70,24 @@ function Navigation() {
        * Menu Items
        */}
       {(!isMobile || isMenuOpen) && (
-          <ul>
-            <li>
-              <NavLink as={Link} to="/">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink as={Link} to="/">
-                Partners
-              </NavLink>
-            </li>
-            <li>
-              <NavLink as={Link} to="/join">
-                CSA Sign Up
-              </NavLink>
-            </li>
-          </ul>
-        )}
+        <ul>
+          <li>
+            <NavLink as={Link} to="/">
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink as={Link} to="/">
+              Partners
+            </NavLink>
+          </li>
+          <li>
+            <NavLink as={Link} to="/join">
+              CSA Sign Up
+            </NavLink>
+          </li>
+        </ul>
+      )}
     </NavBar>
   )
 }
