@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import Typography from 'Typography'
 import FontFaceObserver from 'fontfaceobserver'
@@ -97,17 +97,6 @@ const typography = new Typography({
 })
 
 /**
- * Swap styles when fonts are ready
- */
-
-const filsonProBook = new FontFaceObserver('Filson Pro')
-
-filsonProBook.load().then(() => {
-  document.body.classList.add('has-filson')
-})
-
-
-/**
  * Wrap typographic styles in a class rather than root level.
  * 
  * Ideally, this would be accomplished leveraging Typography's
@@ -144,6 +133,23 @@ console.log('----')
  */
 
 function GlobalStyles () {
+  useEffect(() => {
+    /**
+     * Swap styles when fonts are ready
+     */
+    if (document) {
+      const filsonProBook = new FontFaceObserver('Filson Pro')
+
+      filsonProBook.load().then(() => {
+        document.body.classList.add('has-filson')
+      })
+
+      return () => {
+        document.body.classList.remove('has-filson')
+      }
+    }
+  }, [])
+
   return (
     <Helmet>
       <style type="text/css">{`
