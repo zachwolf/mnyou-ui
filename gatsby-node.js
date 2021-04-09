@@ -1,7 +1,24 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const path = require('path')
 
-// You can delete this file if you're not using it
+exports.onCreateWebpackConfig = ({
+  stage,
+  rules,
+  loaders,
+  plugins,
+  actions,
+}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        path: require.resolve('path-browserify'),
+      },
+      alias: {
+        '@assets': path.resolve(__dirname, 'src/assets'),
+        '@atoms': path.resolve(__dirname, 'src/components/atoms'),
+        '@molecules': path.resolve(__dirname, 'src/components/molecules'),
+        '@organisms': path.resolve(__dirname, 'src/components/organisms'),
+        '@utils': path.resolve(__dirname, 'src/utils'),
+      },
+    },
+  })
+}

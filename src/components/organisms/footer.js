@@ -1,104 +1,95 @@
-import React from "react"
-import styled from "styled-components"
-import Logo from "@atoms/logo"
-import Link from "@atoms/link"
-import LinkTop from "@atoms/linkTop"
-import { media } from "@utils/media"
+import React, { useState, useContext } from 'react'
+import VisuallyHidden from '@reach/visually-hidden'
+import { Link } from 'gatsby'
+import styled, { ThemeContext } from 'styled-components'
+import LogoIcon from '@atoms/Logo'
+import useWindowSize from '@utils/useWindowSize'
 
-const Footer = () => {
+const NavBar = styled.nav`
+  background: ${props => props.theme.color.brand.white};
+  // height: ${props => props.theme.fn.rhythm(2)};
+
+  @media (min-width: 480px) {
+    // height: ${props => props.theme.fn.rhythm(3)};
+  }
+`
+
+const Logo = styled.a``
+
+const NavLink = styled.a``
+
+const MenuToggle = styled.button``
+
+function Footer() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { width } = useWindowSize()
+  const { screen, fn } = useContext(ThemeContext)
+  const isMobile = width < screen.sm.max
+  const screenReaderMenuIconContent = isMenuOpen
+    ? 'Close main menu'
+    : 'Open main menu'
+  const menuIconPath = isMenuOpen
+    ? 'M6 18L18 6M6 6l12 12'
+    : 'M4 6h16M4 12h16M4 18h16'
+
+  console.log('isMobile', isMobile)
+
   return (
-    <FooterContainer>
-      <LogoContainer>
-        <Logo />
-      </LogoContainer>
-      <Info>
-        <Contact>
-          <a href="800.120.2132">Phone: 800-120-2132</a>
-          <a href="mailto:info@google.com">Email: hi@gatsbystarter.com</a>
-          <a href="https://icons8.com/">Illustrations Open Sourced by Icons8</a>
-        </Contact>
-        <Social>
+    <NavBar>
+      <Logo as={Link} to="/">
+        <LogoIcon vertical={isMobile} height={fn.rhythm(1.5)} />
+      </Logo>
+      {/**
+       * mobile menu button
+       */}
+      {isMobile && (
+        <MenuToggle
+          aria-expanded={isMenuOpen}
+          onClick={e => setIsMenuOpen(!isMenuOpen)}
+        >
+          <VisuallyHidden>{screenReaderMenuIconContent}</VisuallyHidden>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden
+            height="24"
+            width="24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d={menuIconPath}
+            />
+          </svg>
+        </MenuToggle>
+      )}
+      {/**
+       * Menu Items
+       */}
+      {(!isMobile || isMenuOpen) && (
+        <ul>
           <li>
-            <Link href="https://instagram.com">Instagram</Link>
+            <NavLink as={Link} to="/">
+              About
+            </NavLink>
           </li>
           <li>
-            <Link href="https://twitter.com">Twitter</Link>
+            <NavLink as={Link} to="/">
+              Partners
+            </NavLink>
           </li>
           <li>
-            <Link href="https://facebook.com">Facebook</Link>
+            <NavLink as={Link} to="/join">
+              CSA Sign Up
+            </NavLink>
           </li>
-        </Social>
-      </Info>
-
-      <Navigation>
-        <li>
-          <Link href="https://instagram.com">MoonClerk</Link>
-        </li>
-        <li>
-          <Link href="https://twitter.com">Gatsby</Link>
-        </li>
-        <li>
-          <Link href="https://facebook.com">Stripe</Link>
-        </li>
-      </Navigation>
-      <LinkTop />
-    </FooterContainer>
+        </ul>
+      )}
+    </NavBar>
   )
 }
 
 export default Footer
-
-const FooterContainer = styled.footer`
-  align-items: start;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr;
-  margin: 0 var(--spacingContent);
-  padding-bottom: var(--spacingFooter);
-  position: relative;
-
-  @media ${media.lg} {
-    grid-template-columns: 1fr 2fr 1fr;
-  }
-`
-
-const LogoContainer = styled.div`
-  position: relative;
-`
-
-const Info = styled.div``
-
-const Contact = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-
-  a {
-    color: ${props => props.theme.colors.gray};
-    margin-bottom: 0;
-    text-decoration: none;
-
-    &:hover {
-      color: ${props => props.theme.colors.black};
-    }
-  }
-`
-
-const Social = styled.ul`
-  list-style: none;
-  margin: 0;
-
-  li {
-    margin-bottom: 0.5rem;
-  }
-`
-
-const Navigation = styled.ul`
-  display: flex;
-  list-style: none;
-  margin: 0;
-
-  li {
-    margin-right: 1rem;
-  }
-`
