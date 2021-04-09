@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import Typography from 'Typography'
+import Typography from 'typography'
 import FontFaceObserver from 'fontfaceobserver'
 import 'normalize.css'
 import styled from 'styled-components'
