@@ -43,22 +43,22 @@ const fontFace = `
 @font-face {
   font-family: 'Filson Pro';
   font-weight: normal;
-  src: url(${require('@assets/fonts/FilsonProBook.woff2')}) format('woff2'),
-       url(${require('@assets/fonts/FilsonProBook.woff')}) format('woff');
+  src: url('${require.resolve('@assets/fonts/FilsonProBook.woff2')}') format('woff2'),
+       url('${require.resolve('@assets/fonts/FilsonProBook.woff')}') format('woff');
 }
   
 @font-face {
   font-family: 'Filson Pro';
   font-weight: bold;
-  src: url(${require('@assets/fonts/FilsonProMedium.woff2')}) format('woff2'),
-       url(${require('@assets/fonts/FilsonProMedium.woff')}) format('woff');
+  src: url('${require.resolve('@assets/fonts/FilsonProMedium.woff2')}') format('woff2'),
+       url('${require.resolve('@assets/fonts/FilsonProMedium.woff')}') format('woff');
 }
 
 @font-face {
   font-family: 'Filson Soft';
   font-weight: bold;
-  src: url(${require('@assets/fonts/FilsonSoftHeavy.woff2')}) format('woff2'),
-       url(${require('@assets/fonts/FilsonSoftHeavy.woff')}) format('woff');
+  src: url('${require.resolve('@assets/fonts/FilsonSoftHeavy.woff2')}') format('woff2'),
+       url('${require.resolve('@assets/fonts/FilsonSoftHeavy.woff')}') format('woff');
 }`
 
 /**
