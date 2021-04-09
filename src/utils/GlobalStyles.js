@@ -1,7 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
+import React from 'react'
+import { Helmet } from 'react-helmet'
 import Typography from 'Typography'
 import FontFaceObserver from 'fontfaceobserver'
 import 'normalize.css'
+import styled from 'styled-components'
 
 /**
  * Font Imports
@@ -61,7 +63,14 @@ const fontFace = `
 
 /**
  * Type Styling
+ *
+ * FOUT minimized by matching Filson's weights and spacing to
+ * the user's system default.
+ *
+ * Compare fonts: https://meowni.ca/font-style-matcher/
  */
+
+ console.log('Typography', Typography.prototype.toJSON)
 
 const typography = new Typography({
   title: 'MNyou',
@@ -70,10 +79,11 @@ const typography = new Typography({
   baseFontSize: '21px',
   bodyFontFamily: ['sans-serif'],
   baseLineHeight: 1.55,
+  headerFontFamily: ['sans-serif'],
   headerWeight: 'bold',
   bodyWeight: 'normal',
   boldWeight: 'bold',
-  overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
+  overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options, styles) => ({
     body: {
       letterSpacing: '0.3px',
     },
@@ -87,7 +97,7 @@ const typography = new Typography({
 })
 
 /**
- * FOUT
+ * Swap styles when fonts are ready
  */
 
 const filsonProBook = new FontFaceObserver('Filson Pro')
@@ -96,11 +106,52 @@ filsonProBook.load().then(() => {
   document.body.classList.add('has-filson')
 })
 
+
+/**
+ * Wrap typographic styles in a class rather than root level.
+ * 
+ * Ideally, this would be accomplished leveraging Typography's
+ * plugin functionality. However, internally, Typography uses
+ * `lodash.merge` with `Array.reduce` to loop through plugin
+ * functions. Lodash's `merge` doesn't provide a means to unset
+ * object values.
+ *
+ * Additionally, Typography's `toString()` exists on the value
+ * instance rather than prototype blocking modification during
+ * instantiation.
+ *
+ * https://github.com/KyleAMathews/typography.js/blob/master/packages/typography/src/utils/createStyles.js#L267
+ */
+const foo = typography.toString.apply({
+  toJSON: () => {
+    console.log('intercept?', typography.toJSON())
+    return {
+    }
+  }
+})
+
+console.log('----')
+console.log('foo', foo)
+console.log('----')
+
+
+console.log('----')
+console.log('typography.toString()', typography.toString)
+console.log('----')
+
 /**
  * Creation
  */
 
-export default createGlobalStyle`
-  ${fontFace}
-  ${typography.toString()}
-`
+function GlobalStyles () {
+  return (
+    <Helmet>
+      <style type="text/css">{`
+        ${fontFace}
+        ${typography.toString()}
+      `}</style>
+    </Helmet>
+  )
+}
+
+export default GlobalStyles

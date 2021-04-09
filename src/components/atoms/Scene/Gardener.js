@@ -56,24 +56,26 @@ const GardenerStyled = styled(Wrapper)`
   }
 `
 
-function Gardener ({ animate, ...rest }) {
+function Gardener({ animate, ...rest }) {
   const ref = useRef(null)
 
   useEffect(() => {
     let prevTimestamp
     let animationId
 
-    const $ = Object.entries(query)
-      .reduce((res, [name, selector]) => ({
+    const $ = Object.entries(query).reduce(
+      (res, [name, selector]) => ({
         ...res,
-        [name]: ref.current.querySelector(selector)
-      }), {})
+        [name]: ref.current.querySelector(selector),
+      }),
+      {}
+    )
 
     /*
     rotate(25deg) translateX(-16%) translateY(-6%);
      */
 
-    function draw (timestamp) {
+    function draw(timestamp) {
       let elapsed
 
       if (prevTimestamp) {
@@ -94,12 +96,7 @@ function Gardener ({ animate, ...rest }) {
     }
   }, [animate, ref])
 
-  return (
-    <GardenerStyled
-      ref={ref}
-      {...rest}
-    />
-  )
+  return <GardenerStyled ref={ref} {...rest} />
 }
 
 export default Gardener

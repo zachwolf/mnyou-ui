@@ -32,6 +32,8 @@ function Navigation() {
     ? 'M6 18L18 6M6 6l12 12'
     : 'M4 6h16M4 12h16M4 18h16'
 
+    console.log('isMobile', isMobile)
+
   return (
     <NavBar>
       <Logo as={Link} to="/">
@@ -67,8 +69,7 @@ function Navigation() {
       {/**
        * Menu Items
        */}
-      {!isMobile ||
-        (isMenuOpen && (
+      {(!isMobile || isMenuOpen) && (
           <ul>
             <li>
               <NavLink as={Link} to="/">
@@ -81,12 +82,12 @@ function Navigation() {
               </NavLink>
             </li>
             <li>
-              <NavLink as={Link} to="/">
+              <NavLink as={Link} to="/join">
                 CSA Sign Up
               </NavLink>
             </li>
           </ul>
-        ))}
+        )}
     </NavBar>
   )
 }
