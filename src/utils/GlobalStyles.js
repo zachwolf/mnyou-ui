@@ -140,9 +140,15 @@ function GlobalStyles () {
     if (document) {
       const filsonProBook = new FontFaceObserver('Filson Pro')
 
-      filsonProBook.load().then(() => {
-        document.body.classList.add('has-filson')
-      })
+      filsonProBook
+        .load()
+        .then(() => {
+          document.body.classList.add('has-filson')
+        })
+        .catch(err => {
+          console.log('err?')
+          console.log(err)
+        })
 
       return () => {
         document.body.classList.remove('has-filson')

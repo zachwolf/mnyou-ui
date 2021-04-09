@@ -1,7 +1,7 @@
 import React from 'react'
 import GlobalStyles from '@utils/GlobalStyles'
 import ThemeProvider from '@utils/Theme'
-import Div from '@atoms/div'
+import Div from '@atoms/Div'
 import Footer from '@organisms/footer'
 import Navigation from '@organisms/Navigation'
 
