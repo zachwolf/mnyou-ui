@@ -10,7 +10,7 @@ exports.onCreateWebpackConfig = ({
   actions.setWebpackConfig({
     resolve: {
       fallback: {
-        path: require.resolve('path-browserify')
+        path: require.resolve('path-browserify'),
       },
       alias: {
         '@assets': path.resolve(__dirname, 'src/assets'),

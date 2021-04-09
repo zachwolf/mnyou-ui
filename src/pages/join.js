@@ -3,9 +3,7 @@ import Layout from '@utils/layout'
 
 const Join = () => (
   <Layout>
-    <div>
-      hello
-    </div>
+    <div>hello</div>
   </Layout>
 )
 
