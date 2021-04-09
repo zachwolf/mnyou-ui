@@ -19,19 +19,6 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-module-resolver',
-      options: {
-        root: './src',
-        aliases: {
-          '@assets': './assets',
-          '@atoms': './components/atoms',
-          '@molecules': './components/molecules',
-          '@organisms': './components/organisms',
-          '@utils': './utils',
-        },
-      },
-    },
-    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'MNyou.org',
