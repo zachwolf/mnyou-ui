@@ -16,7 +16,7 @@ const App = () => (
       <div>
         We do this by bringing youth onto the farm to raise the vegetables and
         learn the business skills needed to become entrepreneurs.
-      </div>
+      </div>  
       <div>
         <Observer>
           <Scene gardener />
