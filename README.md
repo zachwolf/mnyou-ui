@@ -28,6 +28,13 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
+### Local Docker
+
+```sh
+docker build . -t mnyou
+docker run -d -p 3000:3000 mnyou
+```
+
 ## Deployment
 
 If you've followed the setup instructions already, all you need to do is run this:
