@@ -2,6 +2,9 @@
 ARG NODE_ENV=production
 FROM node:16.14-alpine as base
 
+# Install openssl for Prisma
+RUN apk add openssl
+
 RUN mkdir /src
 WORKDIR /src
 
@@ -15,10 +18,16 @@ COPY package*.json remix.* ./
 # folders
 COPY ./app    ./app
 COPY ./public ./public
+COPY ./prisma ./prisma
 
 # `--production=false` installs dev deps needed for build
 RUN npm i --production=false
 ENV PATH=$PATH:/src/node_modules/.bin
+
+# prisma setup
+RUN npx prisma generate
+
+# compile remix app
 RUN cross-env NODE_ENV=$NODE_ENV remix build
 
 # remove dev deps in production builds
