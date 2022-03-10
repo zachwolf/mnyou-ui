@@ -28,11 +28,21 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
-### Local Docker
+### Build Commands
+
+#### Production
+
+*Production-ish, needs DB config
 
 ```sh
 docker build . -t mnyou
 docker run -d -p 3000:3000 mnyou
+```
+
+#### Development
+
+```sh
+docker-compose up [--build]
 ```
 
 ## Deployment
