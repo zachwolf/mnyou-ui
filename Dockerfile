@@ -1,9 +1,6 @@
 # base
 ARG NODE_ENV=production
-FROM node:16.14-alpine as base
-
-# Install openssl for Prisma
-RUN apk add openssl
+FROM node:16.14-bullseye as base
 
 RUN mkdir /src
 WORKDIR /src
