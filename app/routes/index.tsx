@@ -1,5 +1,6 @@
 import { json, useLoaderData } from "remix"
 import { getUser } from "../models/user.server"
+import Logo from "../assets/logo-vertical.svg"
 import type { LoaderFunction } from "remix"
 
 export const loader: LoaderFunction = async () => {
@@ -10,33 +11,49 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const user = useLoaderData()
-  console.log('hello, world', process.env.NODE_ENV, user)
+  
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
+      <h1 class="logo">
+        <a href="https://mnyou.org">
+          <img src={Logo} alt="MNYou" />
+        </a>
+      </h1>
+      
       <ul>
         <li>
           <a
             target="_blank"
-            href="https://remix.run/tutorials/blog"
+            href="https://www.givemn.org/story/Oalbwe"
             rel="noreferrer"
           >
-            15m Quickstart Blog Tutorial!
+            Help Us Recover From May Storm Damage
           </a>
         </li>
         <li>
           <a
             target="_blank"
-            href="https://remix.run/tutorials/jokes"
+            href="https://docs.google.com/forms/d/1_n_BY7QgsYC-VAM3IHJcEVk9sB4GhmOr1_IAajTNC2I/viewform?edit_requested=true"
             rel="noreferrer"
           >
-            Deep Dive Jokes App Tutorial!
+            2022 CSA Signup
           </a>
         </li>
         <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
+          <a target="_blank" href="https://www.facebook.com/MNyouYouth" rel="noreferrer">
+            Facebook
           </a>
+        </li>
+        <li>
+          Venmo: @mnyou
+        </li>
+        <li>
+          PayPal: @mnyouinc
+        </li>
+        <li>
+          Mailing address: <br />
+          1006 Horseshoe Drive <br />
+          Willmar, MN 56201
         </li>
       </ul>
     </div>
