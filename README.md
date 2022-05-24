@@ -26,7 +26,7 @@ flyctl launch
 
 ```sh
 docker build . -t mnyou
-docker run -d -p 3000:3000 mnyou
+docker run -d -p --name mnyou-prod 3000:3000 mnyou -t mnyou-prod
 ```
 
 #### Development
@@ -62,7 +62,7 @@ xxxxxxxxxxxx   postgres:14.2-alpine   [...]
 Connect:
 
 ```
-docker exit -it 8b1ba2be6c65 psql --username=postgres
+docker exec -it 8b1ba2be6c65 psql --username=postgres
 ```
 
 #### Via pgAdmin
