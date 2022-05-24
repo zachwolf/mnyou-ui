@@ -62,7 +62,7 @@ xxxxxxxxxxxx   postgres:14.2-alpine   [...]
 Connect:
 
 ```
-docker exec -it 8b1ba2be6c65 psql --username=postgres
+docker exec -it xxxxxxxxxxxx psql --username=postgres
 ```
 
 #### Via pgAdmin
