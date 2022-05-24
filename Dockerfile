@@ -15,14 +15,14 @@ COPY package*.json remix.* ./
 # folders
 COPY ./app    ./app
 COPY ./public ./public
-COPY ./prisma ./prisma
+# COPY ./prisma ./prisma
 
 # `--production=false` installs dev deps needed for build
 RUN npm i --production=false
 ENV PATH=$PATH:/src/node_modules/.bin
 
 # prisma setup
-RUN npx prisma generate
+# RUN npx prisma generate
 
 # compile remix app
 RUN cross-env NODE_ENV=$NODE_ENV remix build
