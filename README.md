@@ -18,16 +18,6 @@ flyctl auth signup
 flyctl launch
 ```
 
-## Development
-
-From your terminal:
-
-```sh
-npm run dev
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
 ### Build Commands
 
 #### Production
@@ -44,6 +34,50 @@ docker run -d -p 3000:3000 mnyou
 ```sh
 docker-compose up [--build]
 ```
+
+#### Clear Development Database
+
+If making database changes and seeing:
+
+> PostgreSQL Database directory appears to contain a database; Skipping initialization
+
+Run:
+
+```
+docker-compose down --volumes
+```
+
+### Database Access
+
+Find postgres container ID via:
+
+```
+docker ps
+
+CONTAINER ID   IMAGE                  [...]
+............   mnyou-ui_ui            [...]
+xxxxxxxxxxxx   postgres:14.2-alpine   [...]
+```
+
+Connect:
+
+```
+docker exit -it 8b1ba2be6c65 psql --username=postgres
+```
+
+#### Via pgAdmin
+
+Development includes a [pgAdmin](https://www.pgadmin.org) instance. After `docker-compose up`:
+
+- open [localhost:5050](http://localhost:5050)
+- authenticate with `admin@admin.com` and `root`
+- click `Add New Server`
+- add any name, e.g.: `mnyou`
+- select `Connection`
+- set `Host name/address` to `db`
+- set `Maintenance database` to `postgres`
+- set `Username` to `postgres`
+- set `Password` to `postgres`
 
 ## Deployment
 

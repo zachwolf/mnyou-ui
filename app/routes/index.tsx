@@ -1,5 +1,16 @@
+import { json, useLoaderData } from "remix"
+import { getUser } from "../models/user.server"
+import type { LoaderFunction } from "remix"
+
+export const loader: LoaderFunction = async () => {
+  const user = await getUser()
+
+  return json(user)
+}
+
 export default function Index() {
-  console.log('hello, world', process.env.NODE_ENV)
+  const user = useLoaderData()
+  console.log('hello, world', process.env.NODE_ENV, user)
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>

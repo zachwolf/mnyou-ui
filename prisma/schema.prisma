@@ -1,8 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl"]
 }
 
@@ -12,6 +11,64 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(cuid())
-  email    String @unique
+  id    String @id @default(cuid())
+  email String? @unique
+  phone String? @unique
+
+  validatedEmail Boolean
+  validatedPhone Boolean
+
+  addressStreet  String
+  addressStreet2 String?
+  addressCity    String
+  addressState   State
+  addressZip     String
+
+  nameFirst     String
+  nameLast      String
+  namePreferred String
+
+  paymentPreference PaymentType
+
+  @@index([id, email])
 }
+
+enum PaymentType {
+  CASH
+  CARD
+  PAYPAL
+}
+
+enum State {
+  MN
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  date        DateTime
+  status      Status
+  transaction Json
+  summary     Json
+}
+
+enum Status {
+  PENDING
+  PAID
+  FULFILLED
+  CANCELLED
+}
+
+model Store {
+  id String @id @default(cuid())
+}
+
+model Product {
+  id     String  @id @default(cuid())
+  active Boolean
+  price  Int
+  title  String
+  // @@index([title])
+}
+
+// model Store {}
+// model Product {}
