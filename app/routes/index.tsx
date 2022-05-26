@@ -14,7 +14,7 @@ export default function Index() {
   
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1 class="logo">
+      <h1 className="logo">
         <a href="https://mnyou.org">
           <img src={Logo} alt="MNYou" />
         </a>
